@@ -4,6 +4,8 @@
 
 # http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/
 # https://www.rstudio.com/ide/docs/version_control/overview
+# http://kbroman.github.io/github_tutorial/
+
 
 # http://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/
 # http://adv-r.had.co.nz/Package-basics.html
@@ -51,9 +53,9 @@ install("btools")
 
 
 # optionally install from github
-# http://kbroman.github.io/github_tutorial/
 # setwd("..")
-install_github('btools','donboyd5')
+install_github("btools","donboyd5")
+
 
 
 
