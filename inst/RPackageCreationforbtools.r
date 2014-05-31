@@ -3,12 +3,14 @@
 # 5/31/2014
 
 # http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/
+# https://www.rstudio.com/ide/docs/version_control/overview
+
 # http://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/
 # http://adv-r.had.co.nz/Package-basics.html
 # https://github.com/klutometis/roxygen#roxygen2
+
 # http://cran.r-project.org/doc/manuals/R-exts.html#Data-in-packages
 # https://sites.google.com/site/hackoutwiki/developers-corner/developing-r-packages
-
 
 # The following SSH key was added to your account:
 #   
