@@ -1,6 +1,6 @@
 # RPackageCreationforbtools.r
 # Don Boyd
-# 5/31/2014
+# 6/2/2014
 
 # http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/
 # https://www.rstudio.com/ide/docs/version_control/overview
@@ -35,7 +35,7 @@ getOption("defaultPackages")
 library(devtools)
 library(roxygen2)
 
-setwd("E:\\R\\BoydPackages\\")
+setwd("E:\\R\\GitHub\\")
 # create("btools") only run this when needed
 
 # then, create the functions and get into the R subdirectory for the package
@@ -54,7 +54,7 @@ install("btools")
 
 # optionally install from github
 # setwd("..")
-install_github("btools","donboyd5")
+devtools::install_github("btools","donboyd5")
 
 
 

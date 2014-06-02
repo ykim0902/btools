@@ -1,29 +1,34 @@
 # btools_utilities.r
 # Don Boyd
-# 5/25/2014
+# 7/23/2014
 
 
 #****************************************************************************************************
 #
-#                utility functions ####
+#                String manipulation functions ####
 #
 #****************************************************************************************************
 
 
-# functions to trim white space from strings
 
-#' @title Trim white space at either end of strings
+#' @title Capitalize first letter of each word
 #'
-#' @description \code{trimws} trims white space around strings
-#' @usage twimws(s)
-#' @param s The string to trim.
-#' @details All white space is removed from the ends.
-#' @return The trimmed string.
-#' @keywords trimws
+#' @description \code{capwords} capitalize first letter of each word
+#' @usage capwords(s)
+#' @param s The string to capitalize words of
+#' @details All white space is removed from the trailing (right) side of the string.
+#' @return The initial-capped result.
+#' @keywords capwords
 #' @export
 #' @examples
-#' trimws("   original string has leading and trailing spaces   ")
-trimws <- function(s) {gsub("^\\s+|\\s+$", "", s)}
+#' capwords("string to capitalize words in")
+capwords <- function(s, strict = FALSE) {
+  cap <- function(s) paste(toupper(substring(s,1,1)),
+{s <- substring(s,2); if(strict) tolower(s) else s},
+sep = "", collapse = " " )
+sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s)))
+}
+
 
 #' @title Trim leading white space in strings
 #'
@@ -51,24 +56,40 @@ trimlead <- function(s) {sub("^\\s+", "", s)}
 #' trimtrail("   original string has leading and trailing spaces   ")
 trimtrail <- function(s) {sub("\\s+$", "", s)}
 
-#' @title Capitalize first letter of each word
+#' @title Trim white space at either end of strings
 #'
-#' @description \code{capwords} capitalize first letter of each word
-#' @usage capwords(s)
-#' @param s The string to capitalize words of
-#' @details All white space is removed from the trailing (right) side of the string.
-#' @return The initial-capped result.
-#' @keywords capwords
+#' @description \code{trimws} trims white space around strings
+#' @usage twimws(s)
+#' @param s The string to trim.
+#' @details All white space is removed from the ends.
+#' @return The trimmed string.
+#' @keywords trimws
 #' @export
 #' @examples
-#' capwords("string to capitalize words in")
-capwords <- function(s, strict = FALSE) {
-  cap <- function(s) paste(toupper(substring(s,1,1)),
-{s <- substring(s,2); if(strict) tolower(s) else s},
-sep = "", collapse = " " )
-sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s)))
-}
+#' trimws("   original string has leading and trailing spaces   ")
+trimws <- function(s) {gsub("^\\s+|\\s+$", "", s)}
 
+
+
+#****************************************************************************************************
+#
+#                Numeric manipulation functions ####
+#
+#****************************************************************************************************
+
+#' @title Convert character to numeric
+#'
+#' @description \code{cton} converts character to numeric
+#' @usage cton(cvar)
+#' @param cvar The character string input. No default.
+#' @details Replaces spaces, comma, $, and percent sign in a string with NULL and then converts to numeric.
+#' Keeps letters so that scientific notation will be evaluated properly.
+#' @keywords cton
+#' @export
+#' @examples
+#' char <- "$198,234.75"
+#' cton(char)
+cton <- function(cvar) {as.numeric(gsub("[ ,$%]", "", cvar))}
 
 #' @title Convert NA to zero
 #'
@@ -100,21 +121,11 @@ zpad <- function(num, outlen=2){
   return(sprintf(padcode, round(num)))
 }
 
-
-#' @title Convert character to numeric
-#'
-#' @description \code{cton} converts character to numeric
-#' @usage cton(cvar)
-#' @param cvar The character string input. No default.
-#' @details Replaces spaces, comma, $, and percent sign in a string with NULL and then converts to numeric.
-#' Keeps letters so that scientific notation will be evaluated properly.
-#' @keywords cton
-#' @export
-#' @examples
-#' char <- "$198,234.75"
-#' cton(char)
-cton <- function(cvar) {as.numeric(gsub("[ ,$%]", "", cvar))}
-
+#****************************************************************************************************
+#
+#                Miscellaneous functions ####
+#
+#****************************************************************************************************
 
 #' @title Show head and tail of a vector, matrix, table, data frame or function
 #'
@@ -127,12 +138,10 @@ cton <- function(cvar) {as.numeric(gsub("[ ,$%]", "", cvar))}
 #' @export
 #' @examples
 #' ht(recessions, 4)
-ht<-function(df,nrecs=6){
-  print(head(df,nrecs))
-  print(tail(df,nrecs))
+ht <- function(df, nrecs=6){
+  print(head(df, nrecs))
+  print(tail(df, nrecs))
 }
-
-
 
 
 #' @title Describe memory usage and collect garbage
@@ -161,7 +170,30 @@ memory<-function(maxnobjs=5){
   print(paste("Memory in use after: ",memory.size(),sep=""))
 }
 
-# rolling means and sums
+
+#' @title Get expression based on quoted variables names, to use in dplyr's select clause
+#'
+#' @description \code{uvf} get expression based on quoted variables names, to use in dplyr's select clause
+#' @usage getstname(st)
+#' @param vars The character vector of variable names (column names in a data frame)
+#' @details get expression based on quoted variables names, to use in dplyr's select clause
+#' @keywords uvf
+#' @export
+#' @examples
+#' # use uvf within the select clause in the dplyr package
+#' library(dplyr)
+#' library(btools)
+#' df <- data.frame(a=1:4, b=4:1, c=7:10, d=9:12)
+#' vars <- c("c", "d")
+#' df %>% select(a, eval(uvf(vars)))
+uvf <- function(vars) { require(dplyr); parse(text=paste0("c(", paste(vars, collapse=", "), ")")) }
+
+#****************************************************************************************************
+#
+#                Rolling mean and sum functions ####
+#
+#****************************************************************************************************
+
 # the rollmean versions are fast but cannot handle NA input values
 # the rollapply version is slower but handles NAs, so use it
 
@@ -192,6 +224,23 @@ ma4<-function(x) {
 #' sum4(7:21)
 sum4<-function(x) {ma4(x)*4}
 
+#****************************************************************************************************
+#
+#                State name and abbreviation functions ####
+#
+#****************************************************************************************************
+
+#' @title Get state fips code from state abbreviation
+#'
+#' @description \code{getstfips} get state name from state fips code
+#' @usage getstfips(st)
+#' @param st The state abbreviation.
+#' @details get state fips code from state abbreviation
+#' @keywords getstfips
+#' @export
+#' @examples
+#' getstfips("CO")
+getstfips <- function(st) {return(as.character(factor(st, levels=btools::stcodes$stabbr, labels=btools::stcodes$stfips)))}
 
 #' @title Get state name from state abbreviation
 #'
@@ -205,16 +254,5 @@ sum4<-function(x) {ma4(x)*4}
 #' getstname("CO")
 getstname<-function(st) {return(as.character(factor(st,levels=btools::stcodes$stabbr,labels=btools::stcodes$stname)))}
 
-#' @title Get state fips code from state abbreviation
-#'
-#' @description \code{getstfips} get state name from state fips code
-#' @usage getstfips(st)
-#' @param st The state abbreviation.
-#' @details get state fips code from state abbreviation
-#' @keywords getstfips
-#' @export
-#' @examples
-#' getstfips("CO")
-getstfips<-function(st) {return(as.character(factor(st,levels=btools::stcodes$stabbr,labels=btools::stcodes$stfips)))}
 
 
