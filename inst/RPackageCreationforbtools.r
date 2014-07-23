@@ -1,11 +1,6 @@
-
 # RPackageCreationforbtools.r
 # Don Boyd
-<<<<<<< HEAD
 # 7/23/2014
-=======
-# 6/2/2014
->>>>>>> 1e6d23da0e5314eed56122722b1b05af12fddae2
 
 # http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/
 # https://www.rstudio.com/ide/docs/version_control/overview
@@ -46,7 +41,8 @@ getOption("defaultPackages")
 #       install("btools")
 # 4. Upload revised package to github
 #       - select commit from the github button on toolbar above
-#       - press commit
+#       - press commit to commit the changes to the local repository (git on my computer)
+#       - then push to send the new version to the github internet repository
 #       - uid id donboyd5, pw is the 8 chars pw
 # 5. Optionally install from github
 #       devtools::install_github("btools","donboyd5")

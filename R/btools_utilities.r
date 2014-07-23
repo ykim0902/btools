@@ -174,7 +174,7 @@ memory<-function(maxnobjs=5){
 #' @title Get expression based on quoted variables names, to use in dplyr's select clause
 #'
 #' @description \code{uvf} get expression based on quoted variables names, to use in dplyr's select clause
-#' @usage getstname(st)
+#' @usage uvf(vars)
 #' @param vars The character vector of variable names (column names in a data frame)
 #' @details get expression based on quoted variables names, to use in dplyr's select clause
 #' @keywords uvf

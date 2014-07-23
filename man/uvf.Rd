@@ -3,7 +3,7 @@
 \alias{uvf}
 \title{Get expression based on quoted variables names, to use in dplyr's select clause}
 \usage{
-getstname(st)
+uvf(vars)
 }
 \arguments{
   \item{vars}{The character vector of variable names
