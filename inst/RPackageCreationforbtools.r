@@ -1,6 +1,7 @@
+
 # RPackageCreationforbtools.r
 # Don Boyd
-# 6/2/2014
+# 7/23/2014
 
 # http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/
 # https://www.rstudio.com/ide/docs/version_control/overview
@@ -26,6 +27,30 @@
 
 getOption("defaultPackages")
 
+# Steps for creating, revising, documenting, installing, and uploading a package to github:
+# 0.a Load needed packages
+#       library(devtools)
+#       library(roxygen2)  # make sure latest from github is installed:  devtools::install_github("yihui/roxygen2")
+# 0.b Create the package directory if this is a new package:
+#       create("btools")
+# 1. Revise/add functions and documentation, etc. - see examples below
+# 2. Create markup documentation for the revised package via:
+#       setwd("./btools")
+#       document()
+# 3. Install the package locally
+#       setwd("..")
+#       install("btools")
+# 4. Upload revised package to github
+#       - select commit from the github button on toolbar above
+#       - (I think) stage any unstaged files
+#       - put "update" command in the commit box
+#       - press commit
+#       - uid id donboyd5, pw is the 8 chars pw
+# 5. Optionally install from github
+#       devtools::install_github("btools","donboyd5")
+# 6. Due to apparent RStudio bug, best to exit RStudio and then re-enter to see the documentation for the revised package
+
+
 
 # install.packages("devtools")
 # find_rtools()
@@ -40,7 +65,7 @@ setwd("E:\\R\\GitHub\\")
 
 # then, create the functions and get into the R subdirectory for the package
 
-
+# STEPS FOR REVISING
 # REPEAT the steps below each time the package is revised
 # documentation (must be in the r files with functions)
 setwd("./btools")
@@ -50,6 +75,8 @@ document()
 # install
 setwd("..")
 install("btools")
+
+# 
 
 
 # optionally install from github
