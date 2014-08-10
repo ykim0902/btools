@@ -195,7 +195,7 @@ uvf <- function(vars) { require(dplyr); parse(text=paste0("c(", paste(vars, coll
 #****************************************************************************************************
 
 # the rollmean versions are fast but cannot handle NA input values
-# the rollapply version is slower but handles NAs, so use it
+# the rollapply version is slower but handles NAs, so use it - that's what I do
 
 #' @title Get 4-period moving average (3 lags + current)
 #'
