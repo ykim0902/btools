@@ -1,6 +1,6 @@
 # btools_states.R
 # Don Boyd
-# 5/27/2014
+# 8/28/2014
 
 # Create stcodes data file that has various state codes available
 
@@ -22,7 +22,48 @@ stcen<-c('00','01','02','03','04','05','06','07','08','09','10','11','12','13','
          '28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51',
          '72','78') # I made this up for territories
 
-stcodes<-data.frame(stabbr,stfips,stcen,stname)
+stcodes<-data.frame(stabbr, stfips, stcen, stname)
+
+# BEA Regions 
+neng.b<-c("CT","MA","ME","NH","RI","VT")
+mdatl.b<-c("DE","DC","MD","NJ","NY","PA") # BEA calls this mideast but Lucy uses Mid Atlantic
+glr.b<-c("IL","IN","MI","OH","WI")
+plr.b<-c("IA","KS","MN","MO","NE","ND","SD")
+ser.b<-c("AL","AR","FL","GA","KY","LA","MS","NC","SC","TN","VA","WV")
+swr.b<-c("AZ","NM","OK","TX")
+rmr.b<-c("CO","ID","MT","UT","WY")
+fwr.b<-c("AK","CA","HI","NV","OR","WA")
+
+
+stcodes$beargn[stcodes$stabbr %in% neng.b] <- "neng"
+stcodes$beargn.name[stcodes$stabbr %in% neng.b] <- "New England"
+
+stcodes$beargn[stcodes$stabbr %in% mdatl.b] <- "mdatl"
+stcodes$beargn.name[stcodes$stabbr %in% mdatl.b] <- "Mid Atlantic"
+
+stcodes$beargn[stcodes$stabbr %in% glr.b] <- "glr"
+stcodes$beargn.name[stcodes$stabbr %in% glr.b] <- "Great Lakes"
+
+stcodes$beargn[stcodes$stabbr %in% plr.b] <- "plr"
+stcodes$beargn.name[stcodes$stabbr %in% plr.b] <- "Plains"
+
+stcodes$beargn[stcodes$stabbr %in% ser.b] <- "ser"
+stcodes$beargn.name[stcodes$stabbr %in% ser.b] <- "Southeast"
+
+stcodes$beargn[stcodes$stabbr %in% swr.b] <- "swr"
+stcodes$beargn.name[stcodes$stabbr %in% swr.b] <- "Southwest"
+
+stcodes$beargn[stcodes$stabbr %in% rmr.b] <- "rmr"
+stcodes$beargn.name[stcodes$stabbr %in% rmr.b] <- "Rocky Mountain"
+
+stcodes$beargn[stcodes$stabbr %in% fwr.b] <- "fwr"
+stcodes$beargn.name[stcodes$stabbr %in% fwr.b] <- "Far West"
+
+stcodes$beargn[stcodes$stabbr %in% c("US")] <- "usr"
+stcodes$beargn.name[stcodes$stabbr %in% c("US")] <- "United States"
+
+stcodes
+
 save(stcodes, file="./data/stcodes.rda")
 
 
