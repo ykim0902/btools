@@ -102,7 +102,7 @@ cton <- function(cvar) {as.numeric(gsub("[ ,$%]", "", cvar))}
 #' @export
 #' @examples
 #' naz(NA)
-naz <- function(var) {return(ifelse(is.na(var),0,var))}
+naz <- function(var) {return(ifelse(is.na(var), 0, var))}
 
 #' @title Zero-pad leading characters in a numeric value.
 #'
@@ -115,9 +115,9 @@ naz <- function(var) {return(ifelse(is.na(var),0,var))}
 #' @keywords zpad
 #' @export
 #' @examples
-#' zpad(1,4)
+#' zpad(1, 4)
 zpad <- function(num, outlen=2){
-  padcode<-paste0("%0",outlen,"i")
+  padcode <- paste0("%0",outlen,"i")
   return(sprintf(padcode, round(num)))
 }
 

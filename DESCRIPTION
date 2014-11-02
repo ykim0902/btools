@@ -1,6 +1,6 @@
 Package: btools
 Title: Boyd tools
-Version: 0.1
+Version: 0.2
 Authors@R: "Don Boyd <donboyd5@gmail.com> [aut, cre]"
 Description: General text and data management tools
 Depends:
