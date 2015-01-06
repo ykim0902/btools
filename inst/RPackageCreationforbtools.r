@@ -45,7 +45,7 @@ getOption("defaultPackages")
 #       - then push to send the new version to the github internet repository
 #       - uid id donboyd5, pw is the 8 chars pw
 # 5. Optionally install from github
-#       devtools::install_github("btools","donboyd5")
+#       devtools::install_github("donboyd5/btools")
 # 6. Due to apparent RStudio bug, best to exit RStudio and then re-enter to see the documentation for the revised package
 
 
@@ -79,7 +79,7 @@ install("btools")
 
 # optionally install from github
 # setwd("..")
-devtools::install_github("btools","donboyd5")
+devtools::install_github("donboyd5/btools")
 
 
 
