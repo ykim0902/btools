@@ -1,6 +1,6 @@
 # btools_datadocumentation.r
 # Don Boyd
-# 5/27/2014
+# 1/6/2015
 
 
 
@@ -22,7 +22,7 @@ NULL
 #' @usage stcodes
 #' @format A data frame with 1 row per state
 #' @source Census Bureau, other
-#' @author Don Boyd, 2014-05-27
+#' @author Don Boyd, 2015-01-06
 NULL
 
 
