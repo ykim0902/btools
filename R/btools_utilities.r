@@ -25,10 +25,11 @@
 #' @examples
 #' capwords("string to capitalize words in")
 capwords <- function(s, strict = FALSE) {
-  cap <- function(s) paste(toupper(substring(s,1,1)),
-{s <- substring(s,2); if(strict) tolower(s) else s},
-sep = "", collapse = " " )
-sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s)))
+  cap <- function(s) paste(toupper(substring(s,1,1)), 
+                           {s <- substring(s,2); if(strict) tolower(s) else s},
+                           sep = "", 
+                           collapse = " " )
+  sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s)))
 }
 
 
@@ -148,7 +149,7 @@ ht <- function(df, nrecs=6){
 
 #' @title Describe memory usage and collect garbage
 #'
-#' @description \code{memory} converts character to numeric
+#' @description \code{memory} describe memory usage and collect garbage
 #' @usage memory()
 #' @param maxnobjs The number of objects to display. Default is 5.
 #' @details Describes memory usage and collects garbage 
@@ -156,20 +157,20 @@ ht <- function(df, nrecs=6){
 #' @export
 #' @examples
 #' memory(4)
-memory<-function(maxnobjs=5){
+memory <- function(maxnobjs = 5){
   # function for getting the sizes of objects in memory
-  objs<-ls(envir=globalenv())
-  nobjs<-min(length(objs),maxnobjs)
-  tmp<-as.data.frame(sapply(objs, function(x) object.size(get(x)))/1048600)
-  tmp<-data.frame(name=row.names(tmp), sizeMB=tmp[,1])
-  tmp<-tmp[order(-tmp$sizeMB),]
-  tmp$sizeMB<-formatC(tmp$sizeMB,format="f",digits=2,big.mark=",",preserve.width="common")
-  print(paste("Memory available: ",memory.size(NA),sep=""))
-  print(paste("Memory in use before: ",memory.size(),sep=""))
+  objs <- ls(envir = globalenv())
+  nobjs <- min(length(objs), maxnobjs)
+  tmp <- as.data.frame(sapply(objs, function(x) object.size(get(x))) / 1048600)
+  tmp <- data.frame(name = row.names(tmp), sizeMB = tmp[, 1])
+  tmp <- tmp[order(-tmp$sizeMB), ]
+  tmp$sizeMB <- formatC(tmp$sizeMB, format="f", digits=2, big.mark=",", preserve.width="common")
+  print(paste0("Memory available: ", memory.size(NA)))
+  print(paste0("Memory in use before: ",memory.size()))
   print("Memory for selected objects: ")
-  print(head(tmp,nobjs))
+  print(head(tmp, nobjs))
   print(gc())
-  print(paste("Memory in use after: ",memory.size(),sep=""))
+  print(paste0("Memory in use after: ", memory.size()))
 }
 
 
@@ -209,7 +210,7 @@ uvf <- function(vars) { require(dplyr); parse(text=paste0("c(", paste(vars, coll
 #' @export
 #' @examples
 #' ma4(7:21)
-ma4<-function(x) {
+ma4 <- function(x) {
   # note that this requires zoo, which is on the Depends line in the Description file
   rollapply(x, 4, function(x) mean(x, na.rm=TRUE), fill=NA, align="right")
 }
@@ -224,7 +225,7 @@ ma4<-function(x) {
 #' @export
 #' @examples
 #' sum4(7:21)
-sum4<-function(x) {ma4(x)*4}
+sum4 <- function(x) {ma4(x) * 4}
 
 #****************************************************************************************************
 #

@@ -49,58 +49,59 @@ getOption("defaultPackages")
 # 6. Due to apparent RStudio bug, best to exit RStudio and then re-enter to see the documentation for the revised package
 
 
+# junk below here ####
 
 # install.packages("devtools")
 # find_rtools()
 # devtools::install_github("klutometis/roxygen")
 # devtools::install_github("yihui/roxygen2") # I installed from CRAN
 
-library(devtools)
-library(roxygen2)
+# library(devtools)
+# library(roxygen2)
 
-setwd("E:\\R\\GitHub\\")
-# create("btools") only run this when needed
-
-# then, create the functions and get into the R subdirectory for the package
-
-# STEPS FOR REVISING
-# REPEAT the steps below each time the package is revised
-# documentation (must be in the r files with functions)
-setwd("./btools")
-document()
-
-
-# install
-setwd("..")
-install("btools")
-
+# setwd("E:\\R\\GitHub\\")
+# # create("btools") only run this when needed
 # 
-
-
-# optionally install from github
+# # then, create the functions and get into the R subdirectory for the package
+# 
+# # STEPS FOR REVISING
+# # REPEAT the steps below each time the package is revised
+# # documentation (must be in the r files with functions)
+# setwd("./btools")
+# document()
+# 
+# 
+# # install
 # setwd("..")
-devtools::install_github("donboyd5/btools")
-
-
-
-
-# remove.packages("btools")
-
-
-# here is a good example of how to document a function
-
-#' @title Sum of Vector Elements
-#'
-#' @description
-#' \code{sum} returns the sum of all the values present in its arguments.
-#'
-#' @details
-#' This is a generic function: methods can be defined for it directly
-#' or via the \code{Summary} group generic.  For this to work properly,
-#' the arguments \code{...} should be unnamed, and dispatch is on the
-#' first argument.'
-sum <- function(..., na.rm = TRUE) {}
-
+# install("btools")
+# 
+# # 
+# 
+# 
+# # optionally install from github
+# # setwd("..")
+# devtools::install_github("donboyd5/btools")
+# 
+# 
+# 
+# 
+# # remove.packages("btools")
+# 
+# 
+# # here is a good example of how to document a function
+# 
+# #' @title Sum of Vector Elements
+# #'
+# #' @description
+# #' \code{sum} returns the sum of all the values present in its arguments.
+# #'
+# #' @details
+# #' This is a generic function: methods can be defined for it directly
+# #' or via the \code{Summary} group generic.  For this to work properly,
+# #' the arguments \code{...} should be unnamed, and dispatch is on the
+# #' first argument.'
+# sum <- function(..., na.rm = TRUE) {}
+# 
 
 
 
