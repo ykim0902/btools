@@ -3,15 +3,11 @@
 # 7/23/2014
 
 
-
-
 #****************************************************************************************************
 #
 #                String manipulation functions ####
 #
 #****************************************************************************************************
-
-
 
 #' @title Capitalize first letter of each word
 #'
@@ -46,6 +42,7 @@ capwords <- function(s, strict = FALSE) {
 #' trimlead("   original string has leading and trailing spaces   ")
 trimlead <- function(s) {sub("^\\s+", "", s)}
 
+
 #' @title Trim trailing white space in strings
 #'
 #' @description \code{trimtrail} trims trailing white space in strings
@@ -58,6 +55,7 @@ trimlead <- function(s) {sub("^\\s+", "", s)}
 #' @examples
 #' trimtrail("   original string has leading and trailing spaces   ")
 trimtrail <- function(s) {sub("\\s+$", "", s)}
+
 
 #' @title Trim white space at either end of strings
 #'
@@ -87,12 +85,14 @@ trimws <- function(s) {gsub("^\\s+|\\s+$", "", s)}
 #' @param cvar The character string input. No default.
 #' @details Replaces spaces, comma, $, and percent sign in a string with NULL and then converts to numeric.
 #' Keeps letters so that scientific notation will be evaluated properly.
+#' Also look at \code{extract_numeric} in package stringr
 #' @keywords cton
 #' @export
 #' @examples
 #' char <- "$198,234.75"
 #' cton(char)
 cton <- function(cvar) {as.numeric(gsub("[ ,$%]", "", cvar))}
+
 
 #' @title Convert NA to zero
 #'
@@ -107,6 +107,7 @@ cton <- function(cvar) {as.numeric(gsub("[ ,$%]", "", cvar))}
 #' naz(NA)
 naz <- function(var) {return(ifelse(is.na(var), 0, var))}
 
+
 #' @title Zero-pad leading characters in a numeric value.
 #'
 #' @description \code{zpad} converts NA to zero
@@ -120,9 +121,10 @@ naz <- function(var) {return(ifelse(is.na(var), 0, var))}
 #' @examples
 #' zpad(1, 4)
 zpad <- function(num, outlen=2){
-  padcode <- paste0("%0",outlen,"i")
+  padcode <- paste0("%0", outlen, "i")
   return(sprintf(padcode, round(num)))
 }
+
 
 #****************************************************************************************************
 #
@@ -166,30 +168,13 @@ memory <- function(maxnobjs = 5){
   tmp <- tmp[order(-tmp$sizeMB), ]
   tmp$sizeMB <- formatC(tmp$sizeMB, format="f", digits=2, big.mark=",", preserve.width="common")
   print(paste0("Memory available: ", memory.size(NA)))
-  print(paste0("Memory in use before: ",memory.size()))
+  print(paste0("Memory in use before: ", memory.size()))
   print("Memory for selected objects: ")
   print(head(tmp, nobjs))
   print(gc())
   print(paste0("Memory in use after: ", memory.size()))
 }
 
-
-#' @title Get expression based on quoted variables names, to use in dplyr's select clause
-#'
-#' @description \code{uvf} get expression based on quoted variables names, to use in dplyr's select clause
-#' @usage uvf(vars)
-#' @param vars The character vector of variable names (column names in a data frame)
-#' @details get expression based on quoted variables names, to use in dplyr's select clause
-#' @keywords uvf
-#' @export
-#' @examples
-#' # use uvf within the select clause in the dplyr package
-#' library(dplyr)
-#' library(btools)
-#' df <- data.frame(a=1:4, b=4:1, c=7:10, d=9:12)
-#' vars <- c("c", "d")
-#' df %>% select(a, eval(uvf(vars)))
-uvf <- function(vars) { require(dplyr); parse(text=paste0("c(", paste(vars, collapse=", "), ")")) }
 
 #****************************************************************************************************
 #
@@ -212,7 +197,7 @@ uvf <- function(vars) { require(dplyr); parse(text=paste0("c(", paste(vars, coll
 #' ma4(7:21)
 ma4 <- function(x) {
   # note that this requires zoo, which is on the Depends line in the Description file
-  rollapply(x, 4, function(x) mean(x, na.rm=TRUE), fill=NA, align="right")
+  zoo::rollapply(x, 4, function(x) mean(x, na.rm=TRUE), fill=NA, align="right")
 }
 
 #' @title Get 4-period moving sum (3 lags + current)
@@ -225,7 +210,8 @@ ma4 <- function(x) {
 #' @export
 #' @examples
 #' sum4(7:21)
-sum4 <- function(x) {ma4(x) * 4}
+sum4 <- function(x) ma4(x) * 4
+
 
 #****************************************************************************************************
 #
@@ -244,6 +230,7 @@ sum4 <- function(x) {ma4(x) * 4}
 #' @examples
 #' getstfips("CO")
 getstfips <- function(st) {return(as.character(factor(st, levels=btools::stcodes$stabbr, labels=btools::stcodes$stfips)))}
+
 
 #' @title Get state name from state abbreviation
 #'

@@ -1,8 +1,21 @@
 # btools_dates.r
 # Don Boyd
-# 11/2/2014
+# 4/21/2015
 
 # Now that I use lubridate, very few date functions are necessary
+
+#' @title First day of quarter
+#'
+#' @description \code{fdoq} create a date for start of quarter, from quarter, year
+#' @usage fdoq(date)
+#' @param date a vector of dates. No default.
+#' @details You must ensure that the inputs are acceptable (e.g., the input data are dates). The function does not check.
+#' @keywords fdoq
+#' @export
+#' @examples fdoq(as.Date("2010-01-03"))
+#' x <- as.Date(c("2010-01-03", "2011-03-03", "2011-04-07"))
+#' fdoq(x)
+fdoq <- function(date) as.Date(lubridate::floor_date(date, "quarter"))
 
 
 #' @title Create a date from month, day, year
@@ -17,6 +30,7 @@
 #' @export
 #' @examples mdyfn(10, 1, 1988)
 mdyfn <- function(m, d, y) {as.Date(ISOdate(y, m, d))}
+
 
 #' @title Create a date for start of quarter, from quarter, year
 #'

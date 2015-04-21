@@ -1,11 +1,12 @@
 # btools_dplyrtools.r
 # Don Boyd
-# 11/2/2014
+# 4/21/2015
 
 # tools that generally are helpful with dplyr
+
 #' @title Get quantiles for a vector, return as data frame
 #'
-#' @description \code{qtiledf} get trend, seasonal, remainder for a vector that has time-series data
+#' @description \code{qtiledf} get quantiles for a vector, return as data frame
 #' @usage qtiledf(vec, probs)
 #' @param vec Numeric vector. No default.
 #' @param probs Numeric vector of quantiles. Default is c(0, .1, .25, .5, .75, .9, 1).
@@ -17,9 +18,7 @@
 #' @examples
 #' df %>% group_by(year) %>% do(qtiledf(.$marginpct, c(.1, .25, .5, .75, .9)))
 qtiledf <- function(vec, probs=c(0, .1, .25, .5, .75, .9, 1)) as.data.frame(t(quantile(vec, na.rm=TRUE, probs)))
-# function for calling quantiles and returning a data frame - useful with dplyr  
-# here's how to call it, using the variable marginpct in the dataframe df, grouped by year:
-#   df %>% group_by(year) %>% do(qtiledf(.$marginpct, c(.1, .25, .5, .75, .9)))
+
 
 #' @title Get trend, seasonal, remainder for a vector that has time-series data
 #'
@@ -39,10 +38,6 @@ qtiledf <- function(vec, probs=c(0, .1, .25, .5, .75, .9, 1)) as.data.frame(t(qu
 stldf <- function(vec, freq){ # decompose time series; assume "date" var exists; has minor error handling
   # arguments: numeric vector (vec) and its frequency (freq)
   # return: data frame (tsr) with trend, seasonal, and remainder columns
-  # Example of how to call:
-  #   df %>% group_by(govtype, govname, variable) %>%
-  #     arrange(date) %>% # BE SURE DATA HAVE BEEN SORTED BY DATE!!!
-  #     do(cbind(., stldf(.$value, 4)))
   lvec <- length(vec)
   badout <- function(lvec) data.frame(trend=rep(NA, lvec), seasonal=rep(NA, lvec), remainder=rep(NA, lvec))
   
