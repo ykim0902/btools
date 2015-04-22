@@ -16,8 +16,13 @@
 #' @keywords qtiledf
 #' @export
 #' @examples
-#' df %>% group_by(year) %>% do(qtiledf(.$marginpct, c(.1, .25, .5, .75, .9)))
-qtiledf <- function(vec, probs=c(0, .1, .25, .5, .75, .9, 1)) cbind(n.notNA=sum(!is.na(vec)), as.data.frame(t(quantile(vec, na.rm = TRUE, probs))))
+#' library(dplyr)
+#' df <- data_frame(year=c(rep(1, 5), rep(2, 7)), x=c(seq(1, 2, length.out=11), NA))
+#' df
+#' df %>% group_by(year) %>% do(qtiledf(.$x, c(.1, .25, .5, .75, .9)))
+qtiledf <- function(vec, probs=c(0, .1, .25, .5, .75, .9, 1)) {
+  cbind(n=length(vec), n.notNA=sum(!is.na(vec)), as.data.frame(t(quantile(vec, na.rm = TRUE, probs))))
+}
 
 
 #' @title Get trend, seasonal, remainder for a vector that has time-series data
@@ -32,8 +37,9 @@ qtiledf <- function(vec, probs=c(0, .1, .25, .5, .75, .9, 1)) cbind(n.notNA=sum(
 #' @keywords stldf
 #' @export
 #' @examples
-#' df %>% group_by(govtype, govname, variable) %>%
-#'     arrange(date) %>% # BE SURE DATA HAVE BEEN SORTED BY DATE!!!
+#' library(dplyr)
+#' qpopst %>% group_by(stabbr) %>%
+#'     arrange(date) %>% # BE SURE DATA HAVE BEEN SORTED BY DATE WITHIN GROUPING VARS!!!
 #'     do(cbind(., stldf(.$value, 4)))
 stldf <- function(vec, freq){ # decompose time series; assume "date" var exists; has minor error handling
   # arguments: numeric vector (vec) and its frequency (freq)
@@ -43,8 +49,8 @@ stldf <- function(vec, freq){ # decompose time series; assume "date" var exists;
   
   if(lvec < 2 * freq) return(badout(lvec))
   
-  varts <- ts(vec, start=1, frequency=freq)
-  decomp <- stl(varts, s.window = freq + 1, na.action = na.approx) # na.approx replaces missing values with interpolated values  
+  varts <- stats::ts(vec, start=1, frequency=freq)
+  decomp <- stats::stl(varts, s.window = freq + 1, na.action=zoo::na.approx) # na.approx replaces missing values with interpolated values  
   tsr <- data.frame(trend = as.vector(decomp$time.series[, "trend"]), 
                     seasonal = as.vector(decomp$time.series[, "seasonal"]), 
                     remainder = as.vector(decomp$time.series[, "remainder"]))

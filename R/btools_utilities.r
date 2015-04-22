@@ -159,22 +159,30 @@ ht <- function(df, nrecs=6){
 #' @keywords memory
 #' @export
 #' @examples
-#' memory(maxnobjs=4)
+#' memory(4)
 memory <- function(maxnobjs=5){
   # function for getting the sizes of objects in memory
   objs <- ls(envir = globalenv())
   nobjs <- min(length(objs), maxnobjs)
-  f <- function(x) utils::object.size(get(x)) / 1048600
-  sizeMB <- sapply(objs, f)
-  tmp <- data.frame(sizeMB)
-  tmp <- cbind(name=row.names(tmp), tmp) %>% arrange(desc(sizeMB))
-  # tmp <- tmp[order(-tmp$sizeMB), ]
-  row.names(tmp) <- NULL
-  tmp$sizeMB <- formatC(tmp$sizeMB, format="f", digits=2, big.mark=",", preserve.width="common")
+
+  getobjs <- function() {
+    f <- function(x) utils::object.size(get(x)) / 1048600
+    sizeMB <- sapply(objs, f)
+    tmp <- data.frame(sizeMB)
+    tmp <- cbind(name=row.names(tmp), tmp) %>% arrange(desc(sizeMB))
+    # tmp <- tmp[order(-tmp$sizeMB), ]
+    row.names(tmp) <- NULL
+    tmp$sizeMB <- formatC(tmp$sizeMB, format="f", digits=2, big.mark=",", preserve.width="common")
+    return(tmp)
+  }
+  
   print(paste0("Memory available: ", utils::memory.size(NA)))
   print(paste0("Memory in use before: ", utils::memory.size()))
-  print("Memory for selected objects: ")
-  print(head(tmp, nobjs))
+  
+  if(nobjs>0){
+    print("Memory for selected objects: ")
+    print(head(getobjs(), nobjs))
+  }
   print(gc())
   print(paste0("Memory in use after: ", utils::memory.size()))
 }

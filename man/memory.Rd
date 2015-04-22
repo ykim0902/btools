@@ -16,7 +16,7 @@ memory(maxnobjs=5)
 Describes memory usage and collects garbage
 }
 \examples{
-memory(maxnobjs=4)
+memory(4)
 }
 \keyword{memory}
 

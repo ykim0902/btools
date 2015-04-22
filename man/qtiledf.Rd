@@ -22,7 +22,10 @@ Very little error checking.
 Useful after dplyr's group_by, in do command, which requires data frame input.
 }
 \examples{
-df \%>\% group_by(year) \%>\% do(qtiledf(.$marginpct, c(.1, .25, .5, .75, .9)))
+library(dplyr)
+df <- data_frame(year=c(rep(1, 5), rep(2, 7)), x=c(seq(1, 2, length.out=11), NA))
+df
+df \%>\% group_by(year) \%>\% do(qtiledf(.$x, c(.1, .25, .5, .75, .9)))
 }
 \keyword{qtiledf}
 
