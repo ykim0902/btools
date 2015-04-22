@@ -1,12 +1,12 @@
 # btools_dplyrtools.r
 # Don Boyd
-# 4/21/2015
+# 4/22/2015
 
 # tools that generally are helpful with dplyr
 
-#' @title Get quantiles for a vector, return as data frame
+#' @title Get quantiles and number of not-NA observations for a vector, return as data frame
 #'
-#' @description \code{qtiledf} get quantiles for a vector, return as data frame
+#' @description \code{qtiledf} get quantiles and number of not-NA observations for a vector, return as data frame
 #' @usage qtiledf(vec, probs)
 #' @param vec Numeric vector. No default.
 #' @param probs Numeric vector of quantiles. Default is c(0, .1, .25, .5, .75, .9, 1).
@@ -17,7 +17,7 @@
 #' @export
 #' @examples
 #' df %>% group_by(year) %>% do(qtiledf(.$marginpct, c(.1, .25, .5, .75, .9)))
-qtiledf <- function(vec, probs=c(0, .1, .25, .5, .75, .9, 1)) as.data.frame(t(quantile(vec, na.rm=TRUE, probs)))
+qtiledf <- function(vec, probs=c(0, .1, .25, .5, .75, .9, 1)) cbind(n.notNA=sum(!is.na(vec)), as.data.frame(t(quantile(vec, na.rm = TRUE, probs))))
 
 
 #' @title Get trend, seasonal, remainder for a vector that has time-series data

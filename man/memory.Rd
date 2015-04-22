@@ -4,7 +4,7 @@
 \alias{memory}
 \title{Describe memory usage and collect garbage}
 \usage{
-memory()
+memory(maxnobjs=5)
 }
 \arguments{
 \item{maxnobjs}{The number of objects to display. Default is 5.}
@@ -16,7 +16,7 @@ memory()
 Describes memory usage and collects garbage
 }
 \examples{
-memory(4)
+memory(maxnobjs=4)
 }
 \keyword{memory}
 

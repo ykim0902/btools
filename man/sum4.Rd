@@ -4,10 +4,10 @@
 \alias{sum4}
 \title{Get 4-period moving sum (3 lags + current)}
 \usage{
-sum4(vec)
+sum4(x)
 }
 \arguments{
-\item{vec}{The vector to operate on.}
+\item{x}{The vector to operate on.}
 }
 \description{
 \code{sum4} get 4-period moving sum

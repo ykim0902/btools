@@ -2,7 +2,7 @@
 % Please edit documentation in R/btools_dplyrtools.r
 \name{qtiledf}
 \alias{qtiledf}
-\title{Get quantiles for a vector, return as data frame}
+\title{Get quantiles and number of not-NA observations for a vector, return as data frame}
 \usage{
 qtiledf(vec, probs)
 }
@@ -15,7 +15,7 @@ qtiledf(vec, probs)
 Data frame with columns as quantiles
 }
 \description{
-\code{qtiledf} get quantiles for a vector, return as data frame
+\code{qtiledf} get quantiles and number of not-NA observations for a vector, return as data frame
 }
 \details{
 Very little error checking.

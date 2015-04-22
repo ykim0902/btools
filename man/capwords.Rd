@@ -4,10 +4,12 @@
 \alias{capwords}
 \title{Capitalize first letter of each word}
 \usage{
-capwords(s)
+capwords(s, strict=FALSE)
 }
 \arguments{
 \item{s}{The string to capitalize words of}
+
+\item{strict}{TRUE or FALSE}
 }
 \value{
 The initial-capped result.

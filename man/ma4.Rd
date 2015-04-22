@@ -4,10 +4,10 @@
 \alias{ma4}
 \title{Get 4-period moving average (3 lags + current)}
 \usage{
-ma4(vec)
+ma4(x)
 }
 \arguments{
-\item{vec}{The vector to operate on.}
+\item{x}{The vector to operate on.}
 }
 \description{
 \code{ma4} get 4-period moving average

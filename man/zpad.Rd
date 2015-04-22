@@ -4,12 +4,12 @@
 \alias{zpad}
 \title{Zero-pad leading characters in a numeric value.}
 \usage{
-zpad(vec)
+zpad(nvec, outlen=2)
 }
 \arguments{
-\item{outlen}{The length of the string to be returned. Default is 2.}
+\item{nvec}{The numeric vector to zero-pad.}
 
-\item{vec}{The object to zero-pad.}
+\item{outlen}{The length of the string to be returned. Default is 2.}
 }
 \value{
 Zero-padded strings of length outlen.

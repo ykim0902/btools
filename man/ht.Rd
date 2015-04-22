@@ -4,12 +4,12 @@
 \alias{ht}
 \title{Show head and tail of a vector, matrix, table, data frame or function}
 \usage{
-ht(obj)
+ht(df, nrecs=6)
 }
 \arguments{
-\item{nrecs}{number of records, rows, whatever to show at head and at tail}
+\item{df}{The object. No default.}
 
-\item{obj}{The object. No default.}
+\item{nrecs}{number of records, rows, whatever to show at head and at tail}
 }
 \description{
 \code{ht} head and tail of a vector, matrix, table, data frame or function

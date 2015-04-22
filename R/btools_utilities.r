@@ -1,6 +1,6 @@
 # btools_utilities.r
 # Don Boyd
-# 7/23/2014
+# 4/22/2015
 
 
 #****************************************************************************************************
@@ -12,15 +12,16 @@
 #' @title Capitalize first letter of each word
 #'
 #' @description \code{capwords} capitalize first letter of each word
-#' @usage capwords(s)
+#' @usage capwords(s, strict=FALSE)
 #' @param s The string to capitalize words of
+#' @param strict TRUE or FALSE
 #' @details All white space is removed from the trailing (right) side of the string.
 #' @return The initial-capped result.
 #' @keywords capwords
 #' @export
 #' @examples
 #' capwords("string to capitalize words in")
-capwords <- function(s, strict = FALSE) {
+capwords <- function(s, strict=FALSE) {
   cap <- function(s) paste(toupper(substring(s,1,1)), 
                            {s <- substring(s,2); if(strict) tolower(s) else s},
                            sep = "", 
@@ -59,16 +60,16 @@ trimtrail <- function(s) {sub("\\s+$", "", s)}
 
 #' @title Trim white space at either end of strings
 #'
-#' @description \code{trimws} trims white space around strings
-#' @usage twimws(s)
+#' @description \code{trim.ws} trims white space around strings
+#' @usage trim.ws(s)
 #' @param s The string to trim.
 #' @details All white space is removed from the ends.
 #' @return The trimmed string.
-#' @keywords trimws
+#' @keywords trim.ws
 #' @export
 #' @examples
-#' trimws("   original string has leading and trailing spaces   ")
-trimws <- function(s) {gsub("^\\s+|\\s+$", "", s)}
+#' trim.ws("   original string has leading and trailing spaces   ")
+trim.ws <- function(s) {gsub("^\\s+|\\s+$", "", s)}
 
 
 
@@ -98,21 +99,21 @@ cton <- function(cvar) {as.numeric(gsub("[ ,$%]", "", cvar))}
 #'
 #' @description \code{naz} converts NA to zero
 #' @usage naz(vec)
-#' @param string The string to trim.
+#' @param vec The vector to convert
 #' @details Converts all NAs in a vector to zero.
 #' @return The revised vector.
 #' @keywords naz
 #' @export
 #' @examples
 #' naz(NA)
-naz <- function(var) {return(ifelse(is.na(var), 0, var))}
+naz <- function(vec) {return(ifelse(is.na(vec), 0, vec))}
 
 
 #' @title Zero-pad leading characters in a numeric value.
 #'
 #' @description \code{zpad} converts NA to zero
-#' @usage zpad(vec)
-#' @param vec The object to zero-pad.
+#' @usage zpad(nvec, outlen=2)
+#' @param nvec The numeric vector to zero-pad.
 #' @param outlen The length of the string to be returned. Default is 2.
 #' @details Zero-pads on the left all numeric in a vector, returning strings of length outlen.
 #' @return Zero-padded strings of length outlen.
@@ -120,9 +121,9 @@ naz <- function(var) {return(ifelse(is.na(var), 0, var))}
 #' @export
 #' @examples
 #' zpad(1, 4)
-zpad <- function(num, outlen=2){
+zpad <- function(nvec, outlen=2){
   padcode <- paste0("%0", outlen, "i")
-  return(sprintf(padcode, round(num)))
+  return(sprintf(padcode, round(nvec)))
 }
 
 
@@ -135,8 +136,8 @@ zpad <- function(num, outlen=2){
 #' @title Show head and tail of a vector, matrix, table, data frame or function
 #'
 #' @description \code{ht} head and tail of a vector, matrix, table, data frame or function
-#' @usage ht(obj)
-#' @param obj The object. No default.
+#' @usage ht(df, nrecs=6)
+#' @param df The object. No default.
 #' @param nrecs number of records, rows, whatever to show at head and at tail
 #' @details show head and tail of a vector, matrix, table, data frame or function
 #' @keywords ht
@@ -152,27 +153,30 @@ ht <- function(df, nrecs=6){
 #' @title Describe memory usage and collect garbage
 #'
 #' @description \code{memory} describe memory usage and collect garbage
-#' @usage memory()
+#' @usage memory(maxnobjs=5)
 #' @param maxnobjs The number of objects to display. Default is 5.
 #' @details Describes memory usage and collects garbage 
 #' @keywords memory
 #' @export
 #' @examples
-#' memory(4)
-memory <- function(maxnobjs = 5){
+#' memory(maxnobjs=4)
+memory <- function(maxnobjs=5){
   # function for getting the sizes of objects in memory
   objs <- ls(envir = globalenv())
   nobjs <- min(length(objs), maxnobjs)
-  tmp <- as.data.frame(sapply(objs, function(x) object.size(get(x))) / 1048600)
-  tmp <- data.frame(name = row.names(tmp), sizeMB = tmp[, 1])
-  tmp <- tmp[order(-tmp$sizeMB), ]
+  f <- function(x) utils::object.size(get(x)) / 1048600
+  sizeMB <- sapply(objs, f)
+  tmp <- data.frame(sizeMB)
+  tmp <- cbind(name=row.names(tmp), tmp) %>% arrange(desc(sizeMB))
+  # tmp <- tmp[order(-tmp$sizeMB), ]
+  row.names(tmp) <- NULL
   tmp$sizeMB <- formatC(tmp$sizeMB, format="f", digits=2, big.mark=",", preserve.width="common")
-  print(paste0("Memory available: ", memory.size(NA)))
-  print(paste0("Memory in use before: ", memory.size()))
+  print(paste0("Memory available: ", utils::memory.size(NA)))
+  print(paste0("Memory in use before: ", utils::memory.size()))
   print("Memory for selected objects: ")
   print(head(tmp, nobjs))
   print(gc())
-  print(paste0("Memory in use after: ", memory.size()))
+  print(paste0("Memory in use after: ", utils::memory.size()))
 }
 
 
@@ -188,8 +192,8 @@ memory <- function(maxnobjs = 5){
 #' @title Get 4-period moving average (3 lags + current)
 #'
 #' @description \code{ma4} get 4-period moving average
-#' @usage ma4(vec)
-#' @param vec The vector to operate on.
+#' @usage ma4(x)
+#' @param x The vector to operate on.
 #' @details 4-period moving average
 #' @keywords ma4
 #' @export
@@ -203,8 +207,8 @@ ma4 <- function(x) {
 #' @title Get 4-period moving sum (3 lags + current)
 #'
 #' @description \code{sum4} get 4-period moving sum
-#' @usage sum4(vec)
-#' @param vec The vector to operate on.
+#' @usage sum4(x)
+#' @param x The vector to operate on.
 #' @details 4-period moving sum
 #' @keywords sum4
 #' @export

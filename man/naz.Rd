@@ -7,7 +7,7 @@
 naz(vec)
 }
 \arguments{
-\item{string}{The string to trim.}
+\item{vec}{The vector to convert}
 }
 \value{
 The revised vector.

@@ -9,11 +9,11 @@
 Tools that I use regularly.
 Also, includes frequently needed data.
 }
-\section{Overview}{
-
+\section{Overview. Includes data files}{
+ recessions, stcodes, popst, and qpopst.
 }
 
-\section{Examples}{
+\section{Examples. ht(popst)}{
 
 }
 
