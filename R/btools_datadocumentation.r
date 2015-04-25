@@ -4,25 +4,46 @@
 
 
 
-#' @name popst
+#' @name spi.a
+#' @title Dataset with annual state personal income
+#' @description Dataset with postal abbreviation, year, value ($ thousands)
+#' @docType data
+#' @usage spi.a
+#' @format A data frame with 1 row per state per year
+#' @source Bureau of Economic Analysis, via API, as prepared by Boyd
+#' @author Don Boyd, 2015-04-25
+NULL
+
+
+#' @name spi.q
+#' @title Dataset with quarterly state population
+#' @description Dataset with postal abbreviation, date, value ($ thousands)
+#' @docType data
+#' @usage spi.q
+#' @format A data frame with 1 row per state per date (first day of quarter)
+#' @source Bureau of Economic Analysis, via API, as prepared by Boyd
+#' @author Don Boyd, 2015-04-25
+NULL
+
+#' @name spop.a
 #' @title Dataset with annual state population
 #' @description Dataset with postal abbreviation, year, value (thousands), and esttype (estimate type)
 #' Intercensal (July) estimates wherever possible, but only decennial was available in 1970, 1980
 #' @docType data
-#' @usage popst
+#' @usage spop.a
 #' @format A data frame with 1 row per state per year
 #' @source Census Bureau, as prepared by Boyd
-#' @author Don Boyd, 2015-04-21
+#' @author Don Boyd, 2015-04-25
 NULL
 
 
-#' @name qpopst
+#' @name spop.q
 #' @title Dataset with quarterly state population
 #' @description Dataset with postal abbreviation, date, value (thousands)
 #' See popst for details of annual data.
 #' Interpolated from annual to quarterly by Boyd.
 #' @docType data
-#' @usage qpopst
+#' @usage spop.q
 #' @format A data frame with 1 row per state per date (first day of quarter)
 #' @source Census Bureau, as prepared by Boyd
 #' @author Don Boyd, 2015-04-21

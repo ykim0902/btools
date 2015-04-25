@@ -38,7 +38,7 @@ qtiledf <- function(vec, probs=c(0, .1, .25, .5, .75, .9, 1)) {
 #' @export
 #' @examples
 #' library(dplyr)
-#' qpopst %>% group_by(stabbr) %>%
+#' spop.q %>% group_by(stabbr) %>%
 #'     arrange(date) %>% # BE SURE DATA HAVE BEEN SORTED BY DATE WITHIN GROUPING VARS!!!
 #'     do(cbind(., stldf(.$value, 4)))
 stldf <- function(vec, freq){ # decompose time series; assume "date" var exists; has minor error handling

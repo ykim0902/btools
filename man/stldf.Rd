@@ -23,7 +23,7 @@ Useful after dplyr's group_by, in do command, which requires data frame input. M
 }
 \examples{
 library(dplyr)
-qpopst \%>\% group_by(stabbr) \%>\%
+spop.q \%>\% group_by(stabbr) \%>\%
     arrange(date) \%>\% # BE SURE DATA HAVE BEEN SORTED BY DATE WITHIN GROUPING VARS!!!
     do(cbind(., stldf(.$value, 4)))
 }

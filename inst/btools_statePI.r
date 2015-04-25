@@ -6,6 +6,8 @@ library(apitools)
 library(dplyr)
 library(stringr)
 
+data(stcodes)
+
 # annual state personal income ####
 df <- BEA_RgnData("TPI_SI")
 df2 <- df %>% mutate(stabbr=stcodes$stabbr[match(str_sub(GeoFips, 1, 2), stcodes$stfips)])
