@@ -21,6 +21,13 @@
 # CO-EST2001-12-00.csv
 # ST-EST00INT-01.csv 2000-2010
 
+library(dplyr)
+library(tidyr)
+library(gdata)
+
+library(btools)
+
+
 popdir <- paste0("./inst/extdata/statepop-raw/")
 
 # CAUTION: we do not have intercensal data for 1970, 1980 and must use decennial for those years(???)
@@ -116,9 +123,9 @@ tpopl$variable <- as.character(tpopl$variable)
 tpopl$esttype <- ifelse(grepl("decennial",tpopl$variable), substr(tpopl$variable,5,nchar(tpopl$variable)), "intercensal")
 count(tpopl, year)
 count(tpopl, state, stabbr)
-tpopl$state<-NULL
-head(tpopl);tail(tpopl)
-pop1990<-tpopl
+tpopl$state <- NULL
+head(tpopl); tail(tpopl)
+pop1990 <- tpopl
 head(pop1990)
 
 
@@ -175,12 +182,12 @@ count(popall, stabbr)
 
 # make final adjustments so that we have intercensal where possible, and decennial otherwise
 # CAUTION: we do not have intercensal data for 1970, 1980 and must use decennial for those years (???)
-popst <- filter(popall, esttype=="intercensal" | (year %in% c(1970, 1980) & esttype=="decennial1")) %>%
+spop.a <- filter(popall, esttype=="intercensal" | (year %in% c(1970, 1980) & esttype=="decennial1")) %>%
   select(stabbr, year, value, esttype) %>%
   arrange(stabbr, year)
-comment(popst) <- c("Census pop, state and year, thousands, (July, except 1970 and 1980 where April decennial is used)")
+comment(spop.a) <- c("Census pop, state and year, thousands, (July, except 1970 and 1980 where April decennial is used)")
 
-devtools::use_data(popst, overwrite=TRUE)
+devtools::use_data(spop.a, overwrite=TRUE)
 
 # ALL DONE!! ####
 

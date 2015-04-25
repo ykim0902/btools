@@ -3,12 +3,13 @@
 # 4/21/2015
 
 library(forecast) # univariate package from Hyndman
+library(ggplot2)
 
 # create quarterly state population data: 
 #   forecast state population one year ahead, then
 #   interpolate to get quarters
 
-data(popst) # use the latest version of popst
+data(spop.a) # use the latest version of spop.a
 
 
 #----- Forecast a year or two ahead ---------------------------------------------------------
@@ -27,14 +28,14 @@ fcpop <- function(df){
   return(df4)
 }
 
-popst2 <- popst %>% filter(stabbr!="PR") %>%
+fcspop <- spop.a %>% filter(stabbr!="PR") %>%
   group_by(stabbr) %>%
   do(fcpop(.)) # takes about 2 minutes
 
-ht(popst2)
+ht(fcspop)
 
 st <- "CA"
-qplot(year, value, data=filter(popst2, stabbr==st & year>=2000), geom=c("point","line")) # inspect a few states
+qplot(year, value, data=filter(fcspop, stabbr==st & year>=2000), geom=c("point","line")) # inspect a few states
 
 
 #-----------------------------------------------------------------------------------------------
@@ -60,10 +61,10 @@ fqpop <- function(df){
 # df <- filter(popst, stabbr=="NY")
 # qplot(date, value, data=fqpop(filter(popst, stabbr=="LA")), geom=c("point", "line"))
 
-qpopst <- popst2 %>% group_by(stabbr) %>%
+spop.q <- fcspop %>% group_by(stabbr) %>%
   do(fqpop(.))
 
-devtools::use_data(qpopst, overwrite=TRUE)
+devtools::use_data(spop.q, overwrite=TRUE)
 
 
 
