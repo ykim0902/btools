@@ -22,6 +22,7 @@ Returns a data frame with 3 columns: trend, seasonal, remainder. Very little err
 Useful after dplyr's group_by, in do command, which requires data frame input. Make sure data are sorted by time before using.
 }
 \examples{
+library(bdata) # so that spop.q is available
 library(dplyr)
 spop.q \%>\% group_by(stabbr) \%>\%
     arrange(date) \%>\% # BE SURE DATA HAVE BEEN SORTED BY DATE WITHIN GROUPING VARS!!!

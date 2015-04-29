@@ -18,7 +18,7 @@ ht(df, nrecs=6)
 show head and tail of a vector, matrix, table, data frame or function
 }
 \examples{
-ht(recessions, 4)
+ht(mtcars, 4)
 }
 \keyword{ht}
 

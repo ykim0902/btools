@@ -1,6 +1,6 @@
 # btools_dplyrtools.r
 # Don Boyd
-# 4/22/2015
+# 4/29/2015
 
 # tools that generally are helpful with dplyr
 
@@ -37,6 +37,7 @@ qtiledf <- function(vec, probs=c(0, .1, .25, .5, .75, .9, 1)) {
 #' @keywords stldf
 #' @export
 #' @examples
+#' library(bdata) # so that spop.q is available
 #' library(dplyr)
 #' spop.q %>% group_by(stabbr) %>%
 #'     arrange(date) %>% # BE SURE DATA HAVE BEEN SORTED BY DATE WITHIN GROUPING VARS!!!

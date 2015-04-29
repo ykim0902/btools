@@ -10,3 +10,5 @@ LazyData: true
 Imports: dplyr,
     lubridate,
     zoo
+Suggests: bdata
+    
